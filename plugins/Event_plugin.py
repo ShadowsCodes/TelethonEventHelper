@@ -32,7 +32,7 @@ async def init(bot):
                                        '- Python 3.11.1\n'
                                        '- Telethon 1.26.0\n'
                                        '\n'
-                                       'Contact: @TheRealShadow (until the feedback bot works again)')
+                                       'Contact: @Shadowscodesfeedback_bot')
 
     @bot.on(events.NewMessage(incoming=True))
     async def eventSwap(event):
