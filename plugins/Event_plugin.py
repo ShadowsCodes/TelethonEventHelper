@@ -16,9 +16,19 @@ async def init(bot):
                                                         '- Add me to any chat / channel and send a message\n'
                                                         '- I convert it into the whole event log for you to see there\n')
 
+
+    @bot.on(events.NewMessage(incoming=True, pattern=rf"^(/privacy)"))
+    async def start(event):
+        await bot.send_message(entity=event.chat_id, message='This is a simple helper bot displaying message information how Telethon reads it.\n'
+                                                             '\n'
+                                                             'Currently we run on Telethon 1.26.0\n'
+                                                             '\n'
+                                                             'The bot does not save any information, has no database, but only simply responds to your messages.\n'
+                                                             'The code is like the Italian dish \"Spaghetti\". If you really want to see the code go here: https://github.com/ShadowsCodes/TelethonEventHelper')
+
     @bot.on(events.NewMessage(incoming=True))
     async def eventSwap(event):
-        if event.raw_text != '/start':
+        if event.raw_text != '/start' and event.raw_text != '/privacy':
             if event:
                 tab = 4
                 event_array_chat = str(event.chat).replace(',', '\n')
@@ -26,7 +36,7 @@ async def init(bot):
                 event_array_input_chat = str(event.input_chat).replace(',', '\n')
                 response = []
                 response.append('<code>')
-                response.append('Chat:')
+                response.append('event.chat')
                 response.append('\n')
                 for line in event_array_chat.splitlines():
                     counter = 0
@@ -62,7 +72,8 @@ async def init(bot):
                         while tab > counter:
                             response.append(' ')
                             counter += 1
-                        response.append(line)
+                        line = line.replace('=', ' = ')
+                        response.append(line.replace(' ', ''))
                         response.append('\n')
                 response.append('</code>')
                 await bot.send_message(entity=event.chat_id, message=''.join(response), parse_mode='HTML')
@@ -70,7 +81,7 @@ async def init(bot):
                 response = []
                 response.append('\n')
                 response.append('<code>')
-                response.append('event.message:')
+                response.append('event.message')
                 response.append('\n')
                 for line in event_array_message.splitlines():
                     counter = 0
@@ -114,7 +125,7 @@ async def init(bot):
                 response = []
                 response.append('\n')
                 response.append('<code>')
-                response.append('event.input_chat:')
+                response.append('event.input_chat')
                 response.append('\n')
                 for line in event_array_input_chat.splitlines():
                     counter = 0
@@ -159,16 +170,16 @@ async def init(bot):
                 response.append('<code>')
                 response.append('Small Information:')
                 response.append('\n')
-                response.append('is_channel=')
+                response.append('event.is_channel=')
                 response.append(str(event.is_channel))
                 response.append('\n')
-                response.append('is_group=')
+                response.append('event.is_group=')
                 response.append(str(event.is_group))
                 response.append('\n')
-                response.append('is_private=')
+                response.append('event.is_private=')
                 response.append(str(event.is_private))
                 response.append('\n')
-                response.append('chat_id=')
+                response.append('event.chat_id=')
                 response.append(str(event.chat_id))
                 response.append('\n')
                 response.append('</code>')
