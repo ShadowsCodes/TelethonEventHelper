@@ -19,16 +19,24 @@ async def init(bot):
 
     @bot.on(events.NewMessage(incoming=True, pattern=rf"^(/privacy)"))
     async def start(event):
-        await bot.send_message(entity=event.chat_id, message='This is a simple helper bot displaying message information how Telethon reads it.\n'
-                                                             '\n'
-                                                             'Currently we run on Telethon 1.26.0\n'
-                                                             '\n'
-                                                             'The bot does not save any information, has no database, but only simply responds to your messages.\n'
-                                                             'The code is like the Italian dish \"Spaghetti\". If you really want to see the code go here: https://github.com/ShadowsCodes/TelethonEventHelper')
+        await bot.send_message(entity=event.chat_id, message='The bot does not save any information!\n'
+                                       'There\'s no database behind it and the bot code is open for everyone.\n'
+                                       'Logging is not implemented for privacy reasons\n'
+                                       '\n'
+                                       'The code: https://github.com/ShadowsCodes/TelethonEventHelper')
+
+    @bot.on(events.NewMessage(incoming=True, pattern=rf"^(/version)"))
+    async def start(event):
+        await bot.send_message(entity=event.chat_id,
+                               message='The bot works on:\n'
+                                       '- Python 3.11.1\n'
+                                       '- Telethon 1.26.0\n'
+                                       '\n'
+                                       'Contact: @TheRealShadow (until the feedback bot works again)')
 
     @bot.on(events.NewMessage(incoming=True))
     async def eventSwap(event):
-        if event.raw_text != '/start' and event.raw_text != '/privacy':
+        if event.raw_text != '/start' and event.raw_text != '/privacy' and event.raw_text != '/version':
             if event:
                 tab = 4
                 event_array_chat = str(event.chat).replace(',', '\n')

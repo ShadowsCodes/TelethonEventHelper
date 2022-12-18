@@ -28,6 +28,7 @@ except ImportError:
     except ImportError:
         plugins = None
 try:
+    print()
     bot.run_until_disconnected()
 finally:
     bot.disconnect()
