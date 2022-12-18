@@ -2,7 +2,7 @@
 from telethon import TelegramClient
 from service import ConfigService as conf
 
-# Pre loader for the config
+# Pre-loader for the config
 conf.init()
 
 # Use your own values from my.telegram.org
