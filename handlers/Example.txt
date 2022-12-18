@@ -1,2 +1,0 @@
-handlers are automated processes which run periodically. It's different from the services. Services are used for the bot to just function on a base level.
-If there is a game create the folder gameservices for game related services which are needed.

@@ -3,8 +3,8 @@ import os
 import warnings
 
 
-def init(bot, session):
-    bot.loop.run_until_complete(start_plugins(bot, session, [# Dynamically import
+def init(bot):
+    bot.loop.run_until_complete(start_plugins(bot, [# Dynamically import
         importlib.import_module(f'.', f'{__name__}.{file[:-3]}')
 
         # All the files in the current directory
@@ -14,11 +14,11 @@ def init(bot, session):
         if file[0].isalpha() and file.endswith('.py')]))
 
 
-async def start_plugins(bot, session, plugins):
+async def start_plugins(bot, plugins):
     for plugin in plugins:
         p_init = getattr(plugin, 'init', None)
         if callable(p_init):
-            await p_init(bot, session)
+            await p_init(bot)
 
         else:
             print('Couldn\'t get the plugins')
