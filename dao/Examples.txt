@@ -1,0 +1,39 @@
+import datetime
+
+from sqlalchemy import or_
+
+from models.playermodel import player, playerstats
+
+session = None
+
+def init(global_session):
+    global session
+    session = global_session
+
+def get_player_by_player_id(tg_id):
+    found_player = session.query(player).filter(player.tg_id == tg_id).first()
+    if found_player:
+        return found_player
+
+
+def get_player_by_player_pk(player_pk):
+    found_player = session.query(player).filter(player.pk == player_pk).first()
+    if found_player:
+        return found_player
+
+
+def get_player_by_username(username):
+    found_player = session.query(player).filter(player.username == username).first()
+    if found_player:
+        return found_player
+
+
+def get_players_by_name(name):
+    found_players = session.query(player).filter(player.name == name).all()
+    if found_players:
+        return found_players
+
+def get_playerbase_by_player_id(tg_id):
+    found_player = session.query(playerstats).filter(player.tg_id==tg_id).first()
+    if found_player:
+        return found_player
