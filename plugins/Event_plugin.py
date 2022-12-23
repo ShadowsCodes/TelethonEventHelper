@@ -190,5 +190,9 @@ async def init(bot):
                 response.append('event.chat_id=')
                 response.append(str(event.chat_id))
                 response.append('\n')
+                response.append('event.message.file.id=')
+                if event.message.file.id:
+                    response.append(str(event.message.file.id))
+                response.append('\n')
                 response.append('</code>')
                 await bot.send_message(entity=event.chat_id, message=''.join(response), parse_mode='HTML')
